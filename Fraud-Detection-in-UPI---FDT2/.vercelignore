@@ -1,0 +1,84 @@
+# Python
+env/
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node (frontend)
+frontend/node_modules/
+frontend/build/
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn.lock
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# IDE & OS
+.idea/
+.vscode/
+.DS_Store
+*.swp
+*.swo
+Thumbs.db
+
+# Database
+db-data/
+*.sqlite3
+*.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+
+# Git
+.git/
+.gitignore
+
+# Documentation (optional - remove if needed on production)
+docs/
+
+# Models cache (keep only if needed, otherwise remove)
+# Uncomment the line below if models are too large
+# models/
+
+# Test files (optional - can remove for production)
+tests/
+test_*.py
+*_test.py
+
+# Docker
+docker-compose.yml
+Dockerfile
+
+# Other
+.coderabbit.yaml
+ImpactX2.O_IDEA_Tenzor.Nex_FDT2.pdf
+CHANGELOG_SESSION.md
+FIX_SUMMARY.md
+SESSION_MANAGEMENT_FIX.md
+TRANSACTION_LOADING_FIX.md
+MOBILE_SESSION_FIX.md
+BIOMETRIC_AUTH_IMPLEMENTATION.md
+PERFORMANCE_OPTIMIZATION.md
+AGENTS.md
+FRONTEND_README.md
+DEBUGGING_SESSION_ISSUE.md

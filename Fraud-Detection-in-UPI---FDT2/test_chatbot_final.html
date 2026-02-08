@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 800px; 
+            margin: 40px auto; 
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-result { 
+            margin: 15px 0; 
+            padding: 15px; 
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success { border-left: 4px solid #10b981; }
+        .error { border-left: 4px solid #ef4444; }
+        .query { 
+            font-weight: bold; 
+            color: #6366f1;
+            margin-bottom: 10px;
+        }
+        .response { 
+            white-space: pre-line;
+            background: #f9fafb;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        h1 { color: #1f2937; }
+        .status { 
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .status.ok { background: #d1fae5; color: #065f46; }
+        .status.fail { background: #fee2e2; color: #991b1b; }
+        #runTest { 
+            background: #6366f1; 
+            color: white; 
+            border: none; 
+            padding: 12px 24px; 
+            border-radius: 8px; 
+            font-size: 16px; 
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        #runTest:hover { background: #4f46e5; }
+        #runTest:disabled { background: #9ca3af; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+    <h1>🤖 Chatbot Functionality Test</h1>
+    <button id="runTest" onclick="runTests()">Run All Tests</button>
+    <div id="results"></div>
+
+    <script>
+        async function runTests() {
+            const button = document.getElementById('runTest');
+            const resultsDiv = document.getElementById('results');
+            
+            button.disabled = true;
+            button.textContent = 'Testing...';
+            resultsDiv.innerHTML = '';
+
+            const tests = [
+                { name: 'Greeting', message: 'hello' },
+                { name: 'Transaction Count', message: 'How many transactions were blocked?' },
+                { name: 'Risk Analysis', message: 'What is the average risk score?' },
+                { name: 'High Risk Transactions', message: 'Show high risk transactions' },
+                { name: 'Transaction Amounts', message: 'What are the transaction amounts?' },
+                { name: 'General Query', message: 'Tell me about fraud patterns' }
+            ];
+
+            for (const test of tests) {
+                const result = await testChatbot(test.name, test.message);
+                displayResult(result);
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+
+            button.disabled = false;
+            button.textContent = 'Run All Tests';
+        }
+
+        async function testChatbot(testName, message) {
+            try {
+                const response = await fetch('/api/chatbot', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: message,
+                        time_range: '24h'
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                return {
+                    testName,
+                    message,
+                    success: true,
+                    status: response.status,
+                    response: data.response || 'No response',
+                    responseLength: (data.response || '').length
+                };
+            } catch (error) {
+                return {
+                    testName,
+                    message,
+                    success: false,
+                    error: error.message
+                };
+            }
+        }
+
+        function displayResult(result) {
+            const div = document.createElement('div');
+            div.className = `test-result ${result.success ? 'success' : 'error'}`;
+            
+            const statusClass = result.success ? 'ok' : 'fail';
+            const statusText = result.success ? `✓ ${result.status}` : '✗ ERROR';
+            
+            div.innerHTML = `
+                <div class="query">
+                    ${result.testName}
+                    <span class="status ${statusClass}">${statusText}</span>
+                </div>
+                <div style="color: #6b7280; font-size: 13px; margin: 5px 0;">
+                    Query: "${result.message}"
+                </div>
+                ${result.success ? `
+                    <div class="response">${escapeHtml(result.response)}</div>
+                    <div style="color: #9ca3af; font-size: 12px; margin-top: 8px;">
+                        Response length: ${result.responseLength} characters
+                    </div>
+                ` : `
+                    <div style="color: #dc2626; padding: 10px; background: #fef2f2; border-radius: 6px; margin-top: 10px;">
+                        Error: ${result.error}
+                    </div>
+                `}
+            `;
+            
+            document.getElementById('results').appendChild(div);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
