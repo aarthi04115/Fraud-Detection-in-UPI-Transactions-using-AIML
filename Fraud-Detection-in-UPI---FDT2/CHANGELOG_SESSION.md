@@ -341,9 +341,9 @@ BLOCK_THRESHOLD=0.70
 
 # Security Configuration (added for production readiness)
 ADMIN_USERNAME=admin
-ADMIN_PASSWORD_HASH=$pbkdf2-sha256$29000$qbX2vve.l/Ke01orhdD6vw$.2ECjuSag5kNVXF53hLDM5Z0zrhoN1ZsBqSOrVKuFqI
+ADMIN_PASSWORD_HASH=your_password_hash_here
 ALLOWED_ORIGINS=http://localhost:3000,http://localhost:8000
-JWT_SECRET_KEY=dev_secret_change_in_production
+JWT_SECRET_KEY=your_jwt_secret_here
 ```
 
 **For production deployment, regenerate:**
