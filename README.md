@@ -43,12 +43,6 @@ bash start.sh --admin
 - **User API**: http://localhost:8001 (API Docs: /docs)
 - **Admin Dashboard**: http://localhost:8000 (with --admin flag)
 
-### Demo Credentials
-```
-Phone: +919876543210
-Password: password123
-```
-
 ---
 
 ## 📁 Project Structure
@@ -317,7 +311,7 @@ curl -X POST http://localhost:8001/api/transaction \
 
 ---
 
-## 🛠️ Troubleshooting
+##  Troubleshooting
 
 ### Common Issues
 
@@ -418,7 +412,7 @@ CREATE INDEX idx_user_history_user ON user_history(user_id);
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 1. Fork the repository
 2. Create feature branch (`git checkout -b feature/AmazingFeature`)
@@ -430,7 +424,7 @@ CREATE INDEX idx_user_history_user ON user_history(user_id);
 
 ---
 
-## 📝 Scripts Reference
+##  Scripts Reference
 
 | Script | Description |
 |--------|-------------|
@@ -459,20 +453,4 @@ This project is licensed under the MIT License.
 
 ---
 
-## 👥 Team
-
-**Tenzor.Nex @ ImpactX 2.0**
-
----
-
-## 🙏 Acknowledgments
-
-- FastAPI framework
-- Scikit-learn & XGBoost
-- React & TailwindCSS
-- Groq AI
-- Docker & PostgreSQL community
-
----
-
-**Built with ❤️ for safer digital payments**
+r safer digital payments**
